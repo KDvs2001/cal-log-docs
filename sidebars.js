@@ -33,6 +33,13 @@ const sidebars = {
         'ml-service/cal-log-ranker',
         'ml-service/simple-backbone',
         'ml-service/shadow-benchmarking',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Research Benchmark',
+      collapsed: false,
+      items: [
         'ml-service/research-benchmark',
       ],
     },
