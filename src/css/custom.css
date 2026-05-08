@@ -1,0 +1,67 @@
+/**
+ * CAL-Log Documentation — Custom CSS
+ * Dark-mode-first design matching the research tool's slate-900 aesthetic.
+ */
+
+:root {
+  --ifm-color-primary: #3b82f6;
+  --ifm-color-primary-dark: #2563eb;
+  --ifm-color-primary-darker: #1d4ed8;
+  --ifm-color-primary-darkest: #1e40af;
+  --ifm-color-primary-light: #60a5fa;
+  --ifm-color-primary-lighter: #93bbfd;
+  --ifm-color-primary-lightest: #bfdbfe;
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(59, 130, 246, 0.1);
+}
+
+[data-theme='dark'] {
+  --ifm-color-primary: #60a5fa;
+  --ifm-color-primary-dark: #3b82f6;
+  --ifm-color-primary-darker: #2563eb;
+  --ifm-color-primary-darkest: #1d4ed8;
+  --ifm-color-primary-light: #93bbfd;
+  --ifm-color-primary-lighter: #bfdbfe;
+  --ifm-color-primary-lightest: #dbeafe;
+  --ifm-background-color: #0f172a;
+  --ifm-background-surface-color: #1e293b;
+  --docusaurus-highlighted-code-line-bg: rgba(59, 130, 246, 0.15);
+}
+
+/* Improved code block styling */
+.theme-code-block {
+  border-radius: 8px !important;
+}
+
+/* Math equation styling */
+.katex-display {
+  padding: 1rem 0;
+}
+
+/* Mermaid diagram container */
+.docusaurus-mermaid-container {
+  margin: 1.5rem 0;
+}
+
+/* Better table styling */
+table {
+  display: table;
+  width: 100%;
+}
+
+table th {
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+}
+
+/* Sidebar category labels */
+.menu__link {
+  font-size: 0.9rem;
+}
+
+/* Footer styling */
+.footer--dark {
+  background-color: #020617;
+}
