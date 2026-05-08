@@ -26,7 +26,7 @@ flowchart TD
     F -- Yes --> H[Full OLS Regression]
     H --> I[Calculate new Alpha & Beta]
     G --> I
-    I --> J[Clamp to sensible bounds (e.g. Beta 0.1-15)]
+    I --> J["Clamp to sensible bounds (e.g. Beta 0.1-15)"]
     J --> K[Update Cost Engine State]
     K --> L[Next /predict uses new parameters]
 ```
