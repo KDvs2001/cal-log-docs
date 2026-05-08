@@ -31,7 +31,14 @@ def run_study():
     all_res = []
 
     print("STARTING FULL-SCALE BENCHMARK (10 Datasets, 30 Rounds)")
+```
 
+:::danger[Architectural Rationale]
+**`run_study()` - Multi-Engine Deterministic Seeding**
+Active learning algorithmic evaluation demands absolute strict stochastic control. Systemic randomness permeates at multiple independent computational levels: Python's standard `random` module, NumPy tensor shuffling, PyTorch CPU tensor initialization, and PyTorch CUDA kernel execution matrices. Explicitly seeding all four of these distinct random engines guarantees mathematical reproducibility—ensuring independent academic execution of this script will yield identical F1 and Cost trace trajectories.
+:::
+
+```python
     for ds_name, ds_cfg in datasets:
         time.sleep(3)
         data = DatasetFactory.load(ds_name, ds_cfg)
@@ -53,11 +60,7 @@ if __name__ == "__main__":
     run_study()
 ```
 
-:::danger Architectural Rationale
-
-**`run_study()` - Multi-Engine Deterministic Seeding**
-Active learning algorithmic evaluation demands absolute strict stochastic control. Systemic randomness permeates at multiple independent computational levels: Python's standard `random` module, NumPy tensor shuffling, PyTorch CPU tensor initialization, and PyTorch CUDA kernel execution matrices. Explicitly seeding all four of these distinct random engines guarantees mathematical reproducibility—ensuring independent academic execution of this script will yield identical F1 and Cost trace trajectories.
-
+:::danger[Architectural Rationale]
 **`run_study()` - Explicit VRAM Cache Flushing**
 Active learning simulations structurally necessitate cyclic allocation, backpropagation, and outright destruction of massive contextual transformer parameters within the GPU VRAM. Executing this cycle iteratively across 30 rounds and 8 strategies intrinsically fractures PyTorch's native memory allocator, inducing severe memory fragmentation. Explicitly triggering `torch.cuda.empty_cache()` at every strategy boundary is a critical infrastructure mandate that structurally prevents compounding `CUDA OutOfMemory` exceptions from destroying a 48-hour continuous execution run.
 :::

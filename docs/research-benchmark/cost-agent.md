@@ -28,7 +28,14 @@ class CostAgent:
         
         sbert = SentenceTransformer("all-MiniLM-L6-v2", device=DEVICE)
         self.sbert_embs = sbert.encode(data['texts'], convert_to_tensor=False, show_progress_bar=False)
+```
 
+:::danger[Architectural Rationale]
+**`__init__()` - Decoupled Semantic Architecture**
+The architecture intentionally instantiates a `SentenceTransformer("all-MiniLM-L6-v2")` completely independent of the `StandardBackbone`. This ensures that semantic redundancy checks in `CAL-Log` rely on highly optimized, pre-trained dense retrieval embeddings rather than the task-specific, constantly shifting gradients of the RoBERTa backbone, providing a rigid anchor for semantic distance calculations.
+:::
+
+```python
     def _get_cost(self, idxs):
         wc = np.array([len(self.data['texts'][i].split()) for i in idxs])
         reading_time = wc * 0.24
@@ -38,7 +45,18 @@ class CostAgent:
         base_cost = np.maximum(2.0, reading_time + overhead) * fatigue_factor
         random_variation = np.random.normal(1.0, 0.05, len(wc))
         return base_cost * random_variation
+```
 
+:::danger[Architectural Rationale]
+**`_get_cost()` - Empirical Simulation Metrics**
+Evaluating 8 distinct strategies across 10 datasets for 30 rounds requires the annotation of roughly 48,000 documents. Executing this via live human subjects introduces insurmountable logistical constraints. The `_get_cost()` method simulates this empirically:
+1. **Reading Speed**: $0.24$ seconds/word mathematically reflects standard 250 WPM reading speeds.
+2. **Cognitive Overhead**: $+3.0$ seconds static task switching latency.
+3. **Fatigue Inflation**: A $15\%$ penalty multiplier applied iteratively per 5,000 words annotated, modeling documented cognitive degradation over extended annotation sessions.
+Crucially, the method injects $N(1.0, 0.05)$ Gaussian noise. Humans are non-deterministic; injecting 5% noise into the deterministic time calculation mathematically verifies that the CAL-Log active learning optimization remains strictly robust even when internal algorithmic time predictions deviate from physical human execution times.
+:::
+
+```python
     def step(self, r, batch_size=20):
         print(f"   R{r}...", end="\r")
 
@@ -129,18 +147,7 @@ class CostAgent:
         return True
 ```
 
-:::danger Architectural Rationale
-
-**`__init__()` - Decoupled Semantic Architecture**
-The architecture intentionally instantiates a `SentenceTransformer("all-MiniLM-L6-v2")` completely independent of the `StandardBackbone`. This ensures that semantic redundancy checks in `CAL-Log` rely on highly optimized, pre-trained dense retrieval embeddings rather than the task-specific, constantly shifting gradients of the RoBERTa backbone, providing a rigid anchor for semantic distance calculations.
-
-**`_get_cost()` - Empirical Simulation Metrics**
-Evaluating 8 distinct strategies across 10 datasets for 30 rounds requires the annotation of roughly 48,000 documents. Executing this via live human subjects introduces insurmountable logistical constraints. The `_get_cost()` method simulates this empirically:
-1. **Reading Speed**: $0.24$ seconds/word mathematically reflects standard 250 WPM reading speeds.
-2. **Cognitive Overhead**: $+3.0$ seconds static task switching latency.
-3. **Fatigue Inflation**: A $15\%$ penalty multiplier applied iteratively per 5,000 words annotated, modeling documented cognitive degradation over extended annotation sessions.
-Crucially, the method injects $N(1.0, 0.05)$ Gaussian noise. Humans are non-deterministic; injecting 5% noise into the deterministic time calculation mathematically verifies that the CAL-Log active learning optimization remains strictly robust even when internal algorithmic time predictions deviate from physical human execution times.
-
+:::danger[Architectural Rationale]
 **`step()` - Strategy Orchestration Pipeline**
 This method serves as the central router for the entire benchmark experiment:
 - It explicitly calculates deterministic `f1_score` and Expected Calibration Error (`ece`) metrics *before* sampling new data to measure the precise impact of the previous round.
