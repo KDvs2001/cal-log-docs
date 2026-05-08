@@ -12,13 +12,43 @@ All citations used in the CAL-Log codebase, organised by category.
 ```bibtex
 @INPROCEEDINGS{11454245,
   author={Kariyakaranage, Vihanga Supasan and Athuraliya, Banuka},
-  booktitle={2026 International Conference on Artificial Intelligence 
-             in Information and Communication (ICAIIC)}, 
-  title={AL-X0: Cost-Aware Active Learning for Cloud-Scale NLP via 
-         Zero-Shot Proxy Valuation}, 
+  booktitle={2026 International Conference on Artificial Intelligence in Information and Communication (ICAIIC)}, 
+  title={AL-X0: Cost-Aware Active Learning for Cloud-Scale NLP via Zero-Shot Proxy Valuation}, 
   year={2026},
+  volume={},
+  number={},
   pages={657-662},
-  doi={10.1109/ICAIIC68212.2026.11454245}
+  keywords={Cloud computing;Adaptation models;Uncertainty;Costs;Annotations;Active learning;Text categorization;Brain modeling;Calibration;Cost accounting;Active learning;cost-aware learning;text classification;annotation efficiency;cloud computing},
+  doi={10.1109/ICAIIC68212.2026.11454245}}
+
+@INPROCEEDINGS{11499970,
+  author={Kariyakaranage, Vihanga Supasan and Athuraliya, Banuka},
+  booktitle={2026 IEEE International Research Conference on Smart Computing and Systems Engineering (SCSE)}, 
+  title={CAL-Log: Calibration-Aware Logarithmic Cost Modeling for Active Learning in Low-Resource NLP}, 
+  year={2026},
+  volume={9},
+  number={},
+  pages={1-6},
+  keywords={Filtering;Filters;Active filters;Band-pass filters;Protocols;HTTP;Modulation;Radio access networks;Regional area networks;Communication systems;Active learning;cost-aware annotation;text classification;low-resource language;model calibration},
+  doi={10.1109/SCSE70081.2026.11499970}}
+
+@INPROCEEDINGS{11502457,
+  author={Kariyakaranage, Vihanga Supasan and Athuraliya, Banuka},
+  booktitle={2026 IEEE 15th International Conference on Communication Systems and Network Technologies (CSNT)}, 
+  title={Boundary Conditions of Cost-Aware Active Learning: A Multi-Dataset Taxonomy of Calibration and Length-Variance Failure Modes}, 
+  year={2026},
+  volume={},
+  number={},
+  pages={1317-1322},
+  keywords={Telemetry;Aerospace and electronic systems;Communication systems;Protocols;Telemetry;Data communication;HTTP;Diversity methods;Communications technology;Active learning;Active Learning;Natural Language Processing;Computer Vision and AI;Data Mining;Text Classification},
+  doi={10.1109/CSNT69054.2026.11502457}}
+
+@INPROCEEDINGS{acl2026srw_callog,
+  author={Kariyakaranage, Vihanga Supasan and Athuraliya, Banuka},
+  booktitle={Proceedings of the 64th Annual Meeting of the Association for Computational Linguistics: Student Research Workshop (ACL SRW)},
+  title={CAL-Log: Cost-Aware Active Learning with Logarithmic Cognitive Effort Modeling and Online Adaptation to Human Annotation Behavior},
+  year={2026},
+  address={San Diego, California, United States}
 }
 ```
 

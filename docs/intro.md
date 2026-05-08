@@ -30,9 +30,15 @@ Where:
 
 ## Published Research
 
-This system accompanies the published paper:
+This system accompanies the following published and accepted papers:
 
 > **Kariyakaranage, V. S. & Athuraliya, B.** (2026). "AL-X0: Cost-Aware Active Learning for Cloud-Scale NLP via Zero-Shot Proxy Valuation." *2026 International Conference on Artificial Intelligence in Information and Communication (ICAIIC)*, pp. 657-662. DOI: [10.1109/ICAIIC68212.2026.11454245](https://doi.org/10.1109/ICAIIC68212.2026.11454245)
+
+> **Kariyakaranage, V. S. & Athuraliya, B.** (2026). "CAL-Log: Calibration-Aware Logarithmic Cost Modeling for Active Learning in Low-Resource NLP." *2026 IEEE International Research Conference on Smart Computing and Systems Engineering (SCSE)*, vol. 9, pp. 1-6. DOI: [10.1109/SCSE70081.2026.11499970](https://doi.org/10.1109/SCSE70081.2026.11499970)
+
+> **Kariyakaranage, V. S. & Athuraliya, B.** (2026). "Boundary Conditions of Cost-Aware Active Learning: A Multi-Dataset Taxonomy of Calibration and Length-Variance Failure Modes." *2026 IEEE 15th International Conference on Communication Systems and Network Technologies (CSNT)*, pp. 1317-1322. DOI: [10.1109/CSNT69054.2026.11502457](https://doi.org/10.1109/CSNT69054.2026.11502457)
+
+> **Kariyakaranage, V. S. & Athuraliya, B.** (2026). "CAL-Log: Cost-Aware Active Learning with Logarithmic Cognitive Effort Modeling and Online Adaptation to Human Annotation Behavior." *Accepted to the 64th Annual Meeting of the Association for Computational Linguistics (ACL 2026) Student Research Workshop (SRW)*. San Diego, California, United States.
 
 ## Research Objectives
 
