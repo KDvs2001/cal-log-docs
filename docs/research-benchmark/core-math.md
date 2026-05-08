@@ -1,6 +1,6 @@
 ---
 sidebar_position: 3
-title: 3. Core Math
+title: Core Math
 ---
 
 # Core Math (Entropy & Sampling)
@@ -50,7 +50,16 @@ class CoreMath:
 ```
 
 :::danger Architectural Rationale
-**Dynamic Entropy Selection (Single vs. Multi-label)**: Standard Shannon Entropy assumes classes are mutually exclusive (probabilities sum to 1). Applying this blindly to a multi-label task (e.g., the `civil_comments` toxicity dataset) causes structural mathematical failure. For multi-label scenarios, the system is strictly forced to use Binary Cross-Entropy (BCE), taking the average entropy of $N$ independent binary decisions.
 
-**Probability Clipping (`1e-6` / `1e-12`)**: If a neural network outputs absolute certainty ($p=1.0$ or $p=0.0$), calculating $\log_2(0)$ causes a mathematical exception (`NaN`) that cascades through tensor operations, crashing NumPy/PyTorch. Adding a microscopic epsilon (`1e-12`) is a mandatory defensive programming practice in computational mathematics.
+**`calculate_entropy()`**
+This method enforces a strict mathematical bifurcation. Standard Shannon Entropy $H(X) = -\sum P(x) \log_2 P(x)$ intrinsically assumes probability masses are mutually exclusive (sum to 1). Applying this blindly to multi-label tensor outputs completely disintegrates the math. For multi-label paradigms, the method explicitly computes Binary Cross-Entropy (BCE) averages across $N$ independent binary decisions. Furthermore, neural networks outputting absolute certainty ($p=1.0$ or $p=0.0$) causes $\log_2(0)$ to throw `NaN` exceptions during gradient/matrix operations. The `np.clip(probs, 1e-6)` tensor clamping serves as a mandatory numerical stabilizer preventing complete PyTorch pipeline collapse.
+
+**`calculate_margin()`**
+Raw entropy treats all classes equally, which can misrepresent uncertainty if the model is just generally confused. `calculate_margin()` isolates the top two predicted probabilities and calculates their difference. A margin approaching $0$ means the model is severely torn between the two most likely classes (straddling the decision boundary). In multi-label scenarios, the margin is computed as the distance from the $0.5$ activation threshold ($0.5 - |p - 0.5|$).
+
+**`calculate_least_confidence()`**
+This provides the most direct measure of maximum predictive uncertainty via $1 - \max(p)$. It aggressively targets samples where the model's highest confidence activation is extremely weak, serving as a baseline anchor to compare against our more complex `CAL-Log` multi-variate optimizations.
+
+**`kmeans_plus_plus()`**
+The `BADGE` strategy relies on cluster centroids to ensure diversity in the queried pool. However, naive K-Means initialization is highly susceptible to poor localized seeding, and running full Lloyd's algorithm iteratively on 768-dimensional embeddings at every Active Learning step introduces catastrophic latency. `kmeans_plus_plus()` resolves this by probabilistically seeding initial centers proportional to the squared distance ($D^2$) from the nearest existing center. This mathematically guarantees a wide, diverse spatial distribution of anchor points in $O(Nd)$ time before any actual clustering iteration begins.
 :::

@@ -1,6 +1,6 @@
 ---
 sidebar_position: 5
-title: 5. Cost Agent
+title: Cost Agent
 ---
 
 # The Cost Agent & Simulated Cost Function
@@ -130,9 +130,20 @@ class CostAgent:
 ```
 
 :::danger Architectural Rationale
-**Simulated Empirical Cost Over Live Subjects**: Evaluating 8 strategies across 10 datasets for 30 rounds requires annotating roughly 48,000 documents. Executing this live introduces insurmountable human variance and logistical constraints. The cost simulation is constructed empirically: $0.24$ seconds/word reflects standard 250 WPM reading speeds, $+3.0$ seconds static task switching mimics UI transition latency, and a $15\%$ fatigue inflation per 5,000 words models empirically observed cognitive degradation.
 
-**Gaussian Noise Injection $N(1.0, 0.05)$**: Human annotators are inherently non-deterministic. Injecting 5% Gaussian noise into the deterministic time calculation mathematically proves that the CAL-Log cost optimization equation maintains structural integrity even when internal time predictions deviate from actual human execution times.
+**`__init__()` - Decoupled Semantic Architecture**
+The architecture intentionally instantiates a `SentenceTransformer("all-MiniLM-L6-v2")` completely independent of the `StandardBackbone`. This ensures that semantic redundancy checks in `CAL-Log` rely on highly optimized, pre-trained dense retrieval embeddings rather than the task-specific, constantly shifting gradients of the RoBERTa backbone, providing a rigid anchor for semantic distance calculations.
 
-**SBERT Cosine Similarity for Redundancy**: Identical text documents yield identical maximum entropy scores, causing pure uncertainty sampling to redundantly annotate duplicates. Naive Jaccard similarity fails to capture semantics (e.g., "The movie was bad" vs. "Awful film"). Integrating `all-MiniLM-L6-v2` dense semantic embeddings enables the strict penalization of queries that exhibit $>0.95$ cosine similarity to the established labeled pool, optimizing human effort strictly toward novel information gain.
+**`_get_cost()` - Empirical Simulation Metrics**
+Evaluating 8 distinct strategies across 10 datasets for 30 rounds requires the annotation of roughly 48,000 documents. Executing this via live human subjects introduces insurmountable logistical constraints. The `_get_cost()` method simulates this empirically:
+1. **Reading Speed**: $0.24$ seconds/word mathematically reflects standard 250 WPM reading speeds.
+2. **Cognitive Overhead**: $+3.0$ seconds static task switching latency.
+3. **Fatigue Inflation**: A $15\%$ penalty multiplier applied iteratively per 5,000 words annotated, modeling documented cognitive degradation over extended annotation sessions.
+Crucially, the method injects $N(1.0, 0.05)$ Gaussian noise. Humans are non-deterministic; injecting 5% noise into the deterministic time calculation mathematically verifies that the CAL-Log active learning optimization remains strictly robust even when internal algorithmic time predictions deviate from physical human execution times.
+
+**`step()` - Strategy Orchestration Pipeline**
+This method serves as the central router for the entire benchmark experiment:
+- It explicitly calculates deterministic `f1_score` and Expected Calibration Error (`ece`) metrics *before* sampling new data to measure the precise impact of the previous round.
+- It executes standard uncertainty sampling (Entropy, Margin, Least Confidence) and deep embedding sampling (BADGE, CoreSet).
+- **CAL-Log Selection Logic**: For the `CAL-Log` branch, the algorithm explicitly computes the target optimization equation $H(x) / (\alpha + \beta \ln(1 + L(x)))$. To enforce redundancy control, it calculates the $N \times M$ cosine-similarity matrix using the static SBERT embeddings. Any candidate query exhibiting an absolute cosine similarity score $> 0.95$ relative to the existing labeled pool has its acquisition score mathematically obliterated (`* 0.0`), strictly forcing the system to pursue novel information gain rather than identical high-entropy duplicates.
 :::

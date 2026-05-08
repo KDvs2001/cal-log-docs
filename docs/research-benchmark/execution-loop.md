@@ -1,6 +1,6 @@
 ---
 sidebar_position: 6
-title: 6. Execution Loop
+title: Execution Loop
 ---
 
 # Execution Loop & Study Benchmarking
@@ -54,7 +54,10 @@ if __name__ == "__main__":
 ```
 
 :::danger Architectural Rationale
-**Multi-Engine Deterministic Seeding**: Active learning evaluation requires strict stochastic control. Machine learning stochasticity operates at multiple independent execution levels: Python's standard `random`, NumPy vector shuffling, PyTorch CPU tensor initialization, and PyTorch CUDA kernel execution. Explicitly seeding all four engines guarantees absolute reproducibility—independent execution will yield identical F1 and Cost trace trajectories.
 
-**Explicit VRAM Cache Flushing (`empty_cache`)**: Active learning simulations require cyclic allocation and deallocation of model parameters within VRAM. Over 30 rounds and 8 strategies, PyTorch's native memory allocator suffers from severe memory fragmentation. Explicitly flushing the CUDA cache at the strategy boundary structurally prevents `CUDA OutOfMemory` exceptions from destroying a 48-hour continuous benchmark.
+**`run_study()` - Multi-Engine Deterministic Seeding**
+Active learning algorithmic evaluation demands absolute strict stochastic control. Systemic randomness permeates at multiple independent computational levels: Python's standard `random` module, NumPy tensor shuffling, PyTorch CPU tensor initialization, and PyTorch CUDA kernel execution matrices. Explicitly seeding all four of these distinct random engines guarantees mathematical reproducibility—ensuring independent academic execution of this script will yield identical F1 and Cost trace trajectories.
+
+**`run_study()` - Explicit VRAM Cache Flushing**
+Active learning simulations structurally necessitate cyclic allocation, backpropagation, and outright destruction of massive contextual transformer parameters within the GPU VRAM. Executing this cycle iteratively across 30 rounds and 8 strategies intrinsically fractures PyTorch's native memory allocator, inducing severe memory fragmentation. Explicitly triggering `torch.cuda.empty_cache()` at every strategy boundary is a critical infrastructure mandate that structurally prevents compounding `CUDA OutOfMemory` exceptions from destroying a 48-hour continuous execution run.
 :::

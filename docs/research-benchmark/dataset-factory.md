@@ -1,11 +1,11 @@
 ---
 sidebar_position: 2
-title: 2. Dataset Factory
+title: Dataset Factory
 ---
 
 # Dataset Factory & Preprocessing
 
-This class abstracts the loading process. It downloads the dataset, identifies the relevant text/label columns dynamically, and sanitizes the text.
+This class abstracts the dataset ingestion process. It downloads the dataset, dynamically identifies relevant text/label columns regardless of schema, and sanitizes the input text.
 
 ```python
 # ======================================================================================
@@ -100,7 +100,16 @@ class DatasetFactory:
 ```
 
 :::danger Architectural Rationale
-**Dynamic Column Mapping vs. Fixed Schemas**: Real-world data is highly unstructured. By writing a dynamic mapper that systematically probes for likely column names (e.g., `text`, `content`, `tweet`), we empirically prove the system is robust and generalizable. Hardcoded schemas would render the active learning algorithm overly coupled to specific dataset structures.
 
-**Dropping Texts $<5$ Characters**: Extremely short texts (e.g., "ok", "yes") carry practically zero information gain for the model. However, under the cognitive cost model, reading *any* text incurs the base task-switching overhead ($\alpha$). Including negligible-length texts severely skews the logarithmic cost simulation, artificially inflating the performance of naive uncertainty sampling baselines.
+**`TextPreprocessor.clean()`**
+Raw internet data contains HTML entities (`&amp;`), arbitrary tags (`<br>`), and non-printable unicode control characters. Failing to aggressively sanitize this string data causes Out-Of-Vocabulary (OOV) token explosions in the RoBERTa `Byte-Pair Encoding (BPE)` tokenizer. Stripping these mathematically normalizes the input space, ensuring the cost-simulation model calculates reading-length purely on actual readable words rather than invisible bytecode sequences.
+
+**`TextPreprocessor.clean_batch()`**
+Python iteration over string arrays is computationally slow. Wrapping the cleaning function in NumPy vectorization (`np.array([...])`) aligns memory in contiguous blocks, dramatically accelerating text preprocessing for pools scaling into the tens of thousands.
+
+**`DatasetFactory.load()` - Dynamic Schema Mapping**
+Real-world enterprise data is highly unstructured, with primary textual data residing in columns arbitrarily named `tweet`, `content`, `review`, or `question_content`. By implementing a dynamic fallback mapper that probes for probable column names, the architecture empirically demonstrates robustness. Hardcoding specific CSV schemas would inextricably couple the benchmark to specific datasets, compromising generalizability claims.
+
+**`DatasetFactory.load()` - Sub-5 Character Filtering**
+The pipeline explicitly executes a `valid_mask = [len(t) > 5 ...]` tensor operation. Extremely short texts (e.g., "ok", "yes") possess essentially zero Shannon entropy or semantic information gain for the language model. However, under the cognitive cost model equation $C(x) = \alpha + \beta \ln(1 + L(x))$, reading *any* text automatically incurs the strict $\alpha$ base task-switching latency. Permitting these 2-character texts into the pool severely skews the logarithmic cost simulation, artificially inflating the apparent performance efficiency of naive uncertainty sampling baselines. By mathematically excising them, the benchmark isolates the true cost of reading substantive context.
 :::

@@ -1,6 +1,6 @@
 ---
 sidebar_position: 1
-title: 1. Imports and Configuration
+title: Imports and Configuration
 ---
 
 # Imports and Environment Configuration
@@ -58,7 +58,9 @@ except Exception:
 ```
 
 :::danger Architectural Rationale
-**Hugging Face Integration**: Hugging Face standardizes the loading process across our 10 diverse datasets. Using native PyTorch `DataLoader` for raw text requires custom tokenization and batch padding logic for every single dataset format. The goal of this benchmark is to test the Active Learning algorithm, not to build custom data ingestion pipelines.
+**Hugging Face Integration (`transformers`, `datasets`)**
+Hugging Face standardizes the data loading and tokenization process across our 10 diverse datasets. Constructing native PyTorch `DataLoader` objects for raw text requires developing custom, dataset-specific tokenization, truncation, and batch-padding logic. By abstracting this to Hugging Face pipelines, we strictly isolate and benchmark the Active Learning algorithm itself, empirically proving that performance gains are algorithmic rather than artifacts of custom data ingestion pipelines.
 
-**Warning Suppression (`filterwarnings`)**: The Transformers library is extremely verbose regarding model initialization. Over 30 active learning rounds across 10 datasets, this would flood the console, causing severe I/O bottlenecks and making it impossible to monitor the actual cost and F1 metrics in real-time.
+**Warning Suppression (`filterwarnings`, `set_verbosity_error`)**
+The Transformers library is inherently verbose during `AutoModel` initialization. Executing 30 active learning rounds across 8 strategies and 10 datasets results in thousands of initializations. Allowing these warnings to print to standard output would cause severe blocking I/O bottlenecks on the main execution thread, unnecessarily extending the 48-hour continuous compute time and polluting empirical metric traces.
 :::

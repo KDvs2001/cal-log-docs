@@ -1,6 +1,6 @@
 ---
 sidebar_position: 4
-title: 4. Backbone & Calibration
+title: Backbone & Calibration
 ---
 
 # The Backbone & Calibration
@@ -119,7 +119,16 @@ class StandardBackbone:
 ```
 
 :::danger Architectural Rationale
-**Model Re-initialization per Round**: In active learning, incrementally training a model on newly queried data without resetting weights induces catastrophic forgetting; the model mathematically biases towards the most recently sampled data points. Retraining from a fresh `AutoModel.from_pretrained()` checkpoint ensures the model strictly learns the holistic representation of the currently labeled pool.
 
-**LBFGS Temperature Scaling vs. Platt Scaling**: Modern transformer architectures (e.g., RoBERTa) are inherently overconfident. If the model universally outputs $p=0.99$, entropy flattens, reducing active learning to random sampling. Temperature scaling softens the logits via division by $T$. The `LBFGS` optimizer is vastly superior to `Adam` in this context because $T$ is a single 1D parameter; LBFGS computes the exact second-order derivative (Hessian approximation), converging on the globally optimal temperature in milliseconds.
+**`__init__()`**
+The class explicitly defaults to `roberta-base`. RoBERTa provides a heavily optimized contextual embedding space compared to standard BERT, serving as a powerful, academically accepted standard for text classification baselines without the astronomical VRAM overhead of massive LLMs.
+
+**`train_epoch()` - Model Re-initialization**
+Notice that `AutoModelForSequenceClassification.from_pretrained()` is called *inside* the training method, fundamentally destroying the previous model weights. In Active Learning, incrementally fine-tuning a model on newly sampled data without resetting weights mathematically induces catastrophic forgetting; gradients aggressively bias toward the highly uncertain, most recently sampled data points. Retraining from a fresh checkpoint guarantees the model explicitly learns the holistic, unbiased representation of the currently labeled pool. It also implements dynamic `class_weights` mapped directly into `BCEWithLogitsLoss` and `CrossEntropyLoss` to actively penalize class imbalances inherent in the initial random sampling phases.
+
+**`_calibrate_temperature()` - PPRS Calibration**
+Modern transformer architectures are structurally overconfident. If a model universally outputs $p=0.99$ due to softmax saturation, entropy flattens completely, and active uncertainty sampling mathematically degrades into pure random sampling. PPRS Temperature Scaling rectifies this by dividing raw logits by a scalar $T$. This method deploys the `LBFGS` optimizer over standard `AdamW` because $T$ is a strictly 1-dimensional parameter. LBFGS computes the exact second-order derivative (the Hessian approximation), converging on the mathematically optimal temperature scalar in milliseconds rather than requiring extensive epoch iterations.
+
+**`predict()` - Batched Inference & Feature Extraction**
+The prediction step must serve two distinct masters: probability mapping for Entropy/Margin sampling, and dense feature extraction for BADGE/CoreSet sampling. This method natively batches inference to prevent CUDA memory overflows, extracts `out.hidden_states[-1][:, 0, :]` (the final hidden `[CLS]` token representation) to serve as the dense embedding space, and finally applies the previously calculated `self.temperature` scalar before executing the final `softmax` or `sigmoid` activation tensors.
 :::
