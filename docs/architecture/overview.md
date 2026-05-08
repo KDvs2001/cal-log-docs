@@ -9,60 +9,7 @@ CAL-Log is implemented via a modern, strictly separated **4-Tier Architecture** 
 
 ## Architecture Diagram
 
-```mermaid
-graph TB
-    subgraph Presentation["Presentation Tier (React + Vite)"]
-        UI[ResearchWorkspace]
-        SPY[Spy Window]
-        ROI[ROI Calculator]
-        TOUR[Evaluator Tour]
-    end
-
-    subgraph Application["Application Tier (Node.js + Express)"]
-        API[REST API Server]
-        SESSION[Session Routes]
-        FEEDBACK[Feedback Routes]
-        EXPERIMENT[Experiment Routes]
-    end
-
-    subgraph Analytics["Analytics & ML Tier (Python + Flask)"]
-        SIM[Simulation Server]
-        COST[Cost Engine]
-        RANK[CAL-Log Ranker]
-        BACKBONE[SimpleBackbone]
-        SHADOW[Shadow Models]
-    end
-
-    subgraph Data["Data Tier (MongoDB Atlas)"]
-        SESSIONS_DB[(AnnotationSession)]
-        FEEDBACK_DB[(EvaluatorFeedback)]
-        EXPERIMENT_DB[(ExperimentResult)]
-    end
-
-    UI -->|"POST /predict"| SIM
-    UI -->|"POST /annotate"| SIM
-    UI -->|"GET /spy/*"| SIM
-    UI -->|"POST /api/session/save"| API
-    UI -->|"GET /api/session/load"| API
-
-    SPY -->|"GET /spy/selection"| SIM
-    SPY -->|"GET /spy/metrics"| SIM
-    SPY -->|"GET /spy/history"| SIM
-
-    API --> SESSION
-    API --> FEEDBACK
-    API --> EXPERIMENT
-
-    SIM --> COST
-    SIM --> RANK
-    SIM --> BACKBONE
-    SIM --> SHADOW
-    RANK --> COST
-
-    SESSION --> SESSIONS_DB
-    FEEDBACK --> FEEDBACK_DB
-    EXPERIMENT --> EXPERIMENT_DB
-```
+![CAL-Log 4-Tier Architecture Diagram](/img/Architecture_Diagram.png)
 
 ## Tier 1: Presentation (React + Vite)
 
