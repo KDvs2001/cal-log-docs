@@ -21,8 +21,8 @@ Instead of separate studies, we run three **independent model instances** that e
 ```python
 self.models = {
     'cal_log': self.backbone,                    # Primary model (user trains this)
-    'random': SimpleBackbone(num_labels=2),      # Shadow — independent weights
-    'entropy': SimpleBackbone(num_labels=2)      # Shadow — independent weights
+    'random': SimpleBackbone(num_labels=2),      # Shadow - independent weights
+    'entropy': SimpleBackbone(num_labels=2)      # Shadow - independent weights
 }
 ```
 
@@ -67,7 +67,7 @@ rnd_lbl = state.id_to_label.get(rnd_task['id'], 0)  # Look up actual label
 state.pending_labels_random += [(rnd_task['text'], rnd_lbl)]
 ```
 
-This simulates what would have happened if the Random/Entropy strategy had been in control — the model would have been trained on those tasks with their true labels.
+This simulates what would have happened if the Random/Entropy strategy had been in control - the model would have been trained on those tasks with their true labels.
 
 ## Shadow Metrics Calculation
 
@@ -96,7 +96,7 @@ def calc_metrics(picks):
 The **information efficiency** metric (`bits/sec`) is the key comparison:
 - **CAL-Log**: Optimises this directly via Score = H/C
 - **Entropy**: High entropy but potentially high cost (picks long uncertain texts)
-- **Random**: Neither optimised — serves as a baseline
+- **Random**: Neither optimised - serves as a baseline
 
 ## Cumulative Cost Tracking
 
@@ -127,11 +127,11 @@ for name, model in state.models.items():
     scores[name] = round(acc, 3)
 ```
 
-This produces the **accuracy convergence graph** — the primary evidence that CAL-Log achieves comparable accuracy to alternatives while using less human time.
+This produces the **accuracy convergence graph** - the primary evidence that CAL-Log achieves comparable accuracy to alternatives while using less human time.
 
 ## Why This Is Academically Valid
 
-1. **Same architecture**: All three models use identical `SimpleBackbone` (TF-IDF + SGD) — the only variable is task selection
+1. **Same architecture**: All three models use identical `SimpleBackbone` (TF-IDF + SGD) - the only variable is task selection
 2. **Same pre-training**: All models are pre-trained on the same 200-sample seed
 3. **Same evaluation**: All models are tested on the same held-out set at the same intervals
 4. **Fair label access**: Each model trains on the labels for tasks **it** would have selected

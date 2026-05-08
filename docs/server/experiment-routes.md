@@ -3,7 +3,7 @@ sidebar_position: 3
 title: Experiment Routes
 ---
 
-# Experiment Routes — Benchmark Data Management
+# Experiment Routes - Benchmark Data Management
 
 **File**: `server/infrastructure/http/routes/experiment.js` (81 lines)  
 **Role**: GET all benchmark results and POST seed data for the comparison charts.
@@ -73,4 +73,4 @@ router.post('/seed', async (req, res) => {
 | `pValue` | Mann-Whitney U test vs Random | 0.001 (highly significant) |
 | `cohensD` | Effect size for practical significance | 0.92 (large effect, > 0.8 threshold) |
 
-The `deleteMany` + `insertMany` pattern makes this endpoint **idempotent** — calling it 10 times produces the same 3 rows.
+The `deleteMany` + `insertMany` pattern makes this endpoint **idempotent** - calling it 10 times produces the same 3 rows.

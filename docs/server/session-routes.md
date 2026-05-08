@@ -3,7 +3,7 @@ sidebar_position: 2
 title: Session Routes
 ---
 
-# Session Routes — Annotation Progress Management
+# Session Routes - Annotation Progress Management
 
 **File**: `server/infrastructure/http/routes/session.js` (150 lines)  
 **Role**: CRUD routes for annotation sessions. Each evaluator gets one session document keyed by their `contestantId`.
@@ -41,7 +41,7 @@ router.post('/save', async (req, res) => {
 
 **Key design decisions**:
 
-1. **`$set` + `$push` in one call**: Scalar fields are overwritten with `$set`; new annotations are appended with `$push`. Doing both in a single `findOneAndUpdate` makes it **atomic** — no race conditions from read-modify-write patterns.
+1. **`$set` + `$push` in one call**: Scalar fields are overwritten with `$set`; new annotations are appended with `$push`. Doing both in a single `findOneAndUpdate` makes it **atomic** - no race conditions from read-modify-write patterns.
 
 2. **`upsert: true`**: Creates a new document if this contestantId hasn't saved before. Eliminates the need for a separate "create session" endpoint.
 

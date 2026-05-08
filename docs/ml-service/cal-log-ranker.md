@@ -3,7 +3,7 @@ sidebar_position: 3
 title: CAL-Log Ranker
 ---
 
-# cal_log_ranker.py — Task Ranking Engine
+# cal_log_ranker.py - Task Ranking Engine
 
 **File**: `ml_service/models/cal_log_ranker.py` (154 lines)  
 **Role**: Implements the core CAL-Log formula: `Score = Entropy / Cost`. This class is the mathematical bridge between the cost model and the ML backbone.
@@ -20,7 +20,7 @@ class CALLogRanker:
 
 The ranker holds a **reference** to the cost model (not a copy). This means when OLS regression updates α and β in the cost model, the ranker automatically uses the new values on the next ranking call.
 
-### `calculate_entropy()` — Shannon Entropy
+### `calculate_entropy()` - Shannon Entropy
 
 ```python
 def calculate_entropy(self, probabilities: np.ndarray) -> np.ndarray:
@@ -31,7 +31,7 @@ def calculate_entropy(self, probabilities: np.ndarray) -> np.ndarray:
     Args:
         probabilities: Shape (n_tasks, n_classes)
     Returns:
-        entropy: Shape (n_tasks,) — higher = more uncertain
+        entropy: Shape (n_tasks,) - higher = more uncertain
     """
     epsilon = 1e-9  # Prevents log(0) → -inf
     entropy = -np.sum(probabilities * np.log(probabilities + epsilon), axis=1)
@@ -40,7 +40,7 @@ def calculate_entropy(self, probabilities: np.ndarray) -> np.ndarray:
 
 The epsilon guard is essential because `np.log(0.0)` produces `-inf`, which would propagate through all subsequent calculations as `NaN`.
 
-### `calculate_costs()` — Predicted Annotation Time
+### `calculate_costs()` - Predicted Annotation Time
 
 ```python
 def calculate_costs(self, texts: List[str]) -> np.ndarray:
@@ -52,7 +52,7 @@ def calculate_costs(self, texts: List[str]) -> np.ndarray:
 
 This function bridges the ranker to the cost model. Word counts are computed via `str.split()` (whitespace tokenisation), which is fast and doesn't require NLP libraries.
 
-### `rank_by_cal_log()` — The Core Algorithm
+### `rank_by_cal_log()` - The Core Algorithm
 
 ```python
 def rank_by_cal_log(
@@ -76,16 +76,16 @@ def rank_by_cal_log(
     else:
         final_scores = scores
     
-    # Sort descending — most information-per-second first
+    # Sort descending - most information-per-second first
     sorted_indices = np.argsort(final_scores)[::-1]
 ```
 
 **Line-by-line breakdown**:
 
-1. **`entropy = self.calculate_entropy(probabilities)`** — Vector of Shannon entropy values, shape `(N,)`
-2. **`costs = self.calculate_costs(texts)`** — Vector of predicted seconds, shape `(N,)`
-3. **`scores = entropy / costs`** — Element-wise division. This single line IS the CAL-Log algorithm.
-4. **`np.argsort(final_scores)[::-1]`** — Get indices sorted descending. `argsort` returns ascending order; `[::-1]` reverses it.
+1. **`entropy = self.calculate_entropy(probabilities)`** - Vector of Shannon entropy values, shape `(N,)`
+2. **`costs = self.calculate_costs(texts)`** - Vector of predicted seconds, shape `(N,)`
+3. **`scores = entropy / costs`** - Element-wise division. This single line IS the CAL-Log algorithm.
+4. **`np.argsort(final_scores)[::-1]`** - Get indices sorted descending. `argsort` returns ascending order; `[::-1]` reverses it.
 
 ### Transparency Report Generation
 
@@ -116,7 +116,7 @@ task_resp = {
 }
 ```
 
-This report enables **full mathematical auditability** — every component of the score is exposed, allowing the evaluator (or viva examiner) to verify the computation independently.
+This report enables **full mathematical auditability** - every component of the score is exposed, allowing the evaluator (or viva examiner) to verify the computation independently.
 
 ## Module Registration
 

@@ -46,7 +46,7 @@ FROM python:3.9-slim
 
 WORKDIR /app
 
-# Install system dependencies — clean apt cache to reduce layer size
+# Install system dependencies - clean apt cache to reduce layer size
 RUN apt-get update && apt-get install -y \
     build-essential \
     && rm -rf /var/lib/apt/lists/*
@@ -67,7 +67,7 @@ CMD ["python", "simulation_server.py"]
 
 ### Docker Layer Caching Strategy
 
-Requirements are copied **before** the application code. This means Docker can cache the `pip install` layer and skip it entirely when only Python code changes — reducing rebuild time from ~5 minutes to ~10 seconds.
+Requirements are copied **before** the application code. This means Docker can cache the `pip install` layer and skip it entirely when only Python code changes - reducing rebuild time from ~5 minutes to ~10 seconds.
 
 ## Vercel Configuration
 

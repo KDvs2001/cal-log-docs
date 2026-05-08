@@ -5,11 +5,11 @@ title: Entropy Scoring
 
 # Shannon Entropy for Uncertainty Quantification
 
-Shannon entropy measures **how uncertain** the classifier is about a text's label. Texts where the model is most uncertain are the most valuable for retraining — this is the foundational principle of **uncertainty sampling** in active learning.
+Shannon entropy measures **how uncertain** the classifier is about a text's label. Texts where the model is most uncertain are the most valuable for retraining - this is the foundational principle of **uncertainty sampling** in active learning.
 
 ## Viva Summary
 > [!NOTE]
-> **For the Viva**: Entropy is simply a mathematical measure of "how confused the AI is". If the AI predicts [0.99, 0.01], it's very confident (Low Entropy). If it predicts [0.5, 0.5], it's completely guessing (High Entropy). By finding the texts with the highest entropy, we find the texts that will teach the AI the most if you label them. However, picking *only* by high entropy often selects extremely long, exhausting texts—which is exactly what the CAL-Log formula is designed to prevent by dividing Entropy by Cost.
+> **For the Viva**: Entropy is simply a mathematical measure of "how confused the model is". If the model predicts [0.99, 0.01], it's very confident (Low Entropy). If it predicts [0.5, 0.5], it's completely guessing (High Entropy). By finding the texts with the highest entropy, we find the texts that will teach the model the most if you label them. However, picking *only* by high entropy often selects extremely long, exhausting texts-which is exactly what the CAL-Log formula is designed to prevent by dividing Entropy by Cost.
 
 ### Visualizing Entropy Scoring
 
@@ -44,11 +44,11 @@ $$
 
 | Model Output | Entropy $H(x)$ | Interpretation |
 |-------------|-----------------|----------------|
-| [0.5, 0.5] | **0.693** (max) | Complete uncertainty — maximum information value |
-| [0.6, 0.4] | 0.673 | Slight lean — still very informative |
-| [0.8, 0.2] | 0.500 | Moderate confidence — some information value |
-| [0.95, 0.05] | 0.199 | High confidence — low information value |
-| [0.99, 0.01] | 0.056 | Near-certain — annotating this teaches almost nothing |
+| [0.5, 0.5] | **0.693** (max) | Complete uncertainty - maximum information value |
+| [0.6, 0.4] | 0.673 | Slight lean - still very informative |
+| [0.8, 0.2] | 0.500 | Moderate confidence - some information value |
+| [0.95, 0.05] | 0.199 | High confidence - low information value |
+| [0.99, 0.01] | 0.056 | Near-certain - annotating this teaches almost nothing |
 
 ## Why CAL-Log Doesn't Just Use Entropy
 
@@ -83,7 +83,7 @@ class CALLogRanker:
         Args:
             probabilities: Shape (n_tasks, n_classes)
         Returns:
-            entropy: Shape (n_tasks,) — higher = more uncertain
+            entropy: Shape (n_tasks,) - higher = more uncertain
         """
         epsilon = 1e-9  # Prevent log(0) → -inf
         entropy = -np.sum(probabilities * np.log(probabilities + epsilon), axis=1)
@@ -106,6 +106,6 @@ $$
 
 The probabilities fed into the entropy calculation come from the `SimpleBackbone`'s `predict_proba()` method, which uses an SGDClassifier with `loss='log_loss'` (logistic regression). This ensures:
 
-1. **Calibrated probabilities** — log loss training produces probability estimates that are meaningful (unlike SVMs or raw SGD)
-2. **Incremental updates** — `partial_fit()` allows online learning without reprocessing old data
-3. **Speed** — prediction over 200 candidates takes under 50ms
+1. **Calibrated probabilities** - log loss training produces probability estimates that are meaningful (unlike SVMs or raw SGD)
+2. **Incremental updates** - `partial_fit()` allows online learning without reprocessing old data
+3. **Speed** - prediction over 200 candidates takes under 50ms

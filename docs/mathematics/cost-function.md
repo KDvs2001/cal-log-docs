@@ -40,7 +40,7 @@ Where:
 
 ## Why Logarithmic, Not Linear?
 
-A linear cost model ($C = \alpha + \beta \cdot L$) would predict that a 1000-word text takes 10× longer than a 100-word text. In practice, reading speed increases with context — after understanding the topic of a text, subsequent paragraphs process faster. The logarithm captures this **diminishing marginal cost** of additional words.
+A linear cost model ($C = \alpha + \beta \cdot L$) would predict that a 1000-word text takes 10× longer than a 100-word text. In practice, reading speed increases with context - after understanding the topic of a text, subsequent paragraphs process faster. The logarithm captures this **diminishing marginal cost** of additional words.
 
 ```
 Linear:      Cost grows proportionally with length

@@ -9,7 +9,7 @@ CAL-Log models annotator fatigue through two mechanisms: the **reading pattern c
 
 ## Reading Pattern Classification
 
-The reading pattern is derived purely from the β parameter — no hardcoded conditions on task selection:
+The reading pattern is derived purely from the β parameter - no hardcoded conditions on task selection:
 
 | β Range | Pattern | Behaviour |
 |---------|---------|-----------|
@@ -19,7 +19,7 @@ The reading pattern is derived purely from the β parameter — no hardcoded con
 
 ### Key Design Principle
 
-The system does **not** contain any `if fast_skimmer: pick_long_tasks()` logic. The classification is purely observational — a label applied to the current β value. The ranking behaviour emerges naturally from the cost formula:
+The system does **not** contain any `if fast_skimmer: pick_long_tasks()` logic. The classification is purely observational - a label applied to the current β value. The ranking behaviour emerges naturally from the cost formula:
 
 When β is high (careful reader):
 $$
@@ -77,7 +77,7 @@ def get_reading_pattern(self):
 Independent of the server-side reading pattern, the React frontend monitors annotation timing to detect when the evaluator might be fatigued or distracted:
 
 ```javascript
-// ResearchWorkspace.jsx — Fatigue detection logic
+// ResearchWorkspace.jsx - Fatigue detection logic
 if (annotationTimes.length >= 3) {
     // Trim top 20% longest times to remove outliers (coffee breaks, etc.)
     const sortedTimes = [...annotationTimes].sort((a, b) => a - b);
@@ -97,7 +97,7 @@ if (annotationTimes.length >= 3) {
 
 ### Why Trim the Top 20%?
 
-Without trimming, a single 2-minute coffee break would inflate the average to ~30s, making the 5× threshold 150 seconds — far too lenient to detect actual fatigue. The trimmed mean (P80) provides a robust baseline that ignores extreme outliers.
+Without trimming, a single 2-minute coffee break would inflate the average to ~30s, making the 5× threshold 150 seconds - far too lenient to detect actual fatigue. The trimmed mean (P80) provides a robust baseline that ignores extreme outliers.
 
 ### Fatigue Pause Time Accounting
 

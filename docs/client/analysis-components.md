@@ -41,10 +41,10 @@ Below the table, displays the current α, β, and the live cost formula with plu
 **Purpose**: Recharts line charts showing parameter convergence and model accuracy.
 
 Four graphs:
-1. **Alpha over time** — Fixed overhead convergence
-2. **Beta over time** — Reading speed convergence
-3. **Accuracy comparison** — CAL-Log vs Random vs Entropy accuracy on the held-out test set
-4. **Cumulative cost** — Running total of predicted annotation cost per strategy
+1. **Alpha over time** - Fixed overhead convergence
+2. **Beta over time** - Reading speed convergence
+3. **Accuracy comparison** - CAL-Log vs Random vs Entropy accuracy on the held-out test set
+4. **Cumulative cost** - Running total of predicted annotation cost per strategy
 
 All graphs use Recharts' `ResponsiveContainer` for fluid resizing:
 ```jsx

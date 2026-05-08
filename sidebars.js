@@ -4,7 +4,7 @@ const sidebars = {
     'intro',
     {
       type: 'category',
-      label: '🏗️ Architecture',
+      label: 'Architecture',
       collapsed: false,
       items: [
         'architecture/overview',
@@ -14,7 +14,7 @@ const sidebars = {
     },
     {
       type: 'category',
-      label: '📐 Mathematics',
+      label: 'Mathematics',
       collapsed: false,
       items: [
         'mathematics/cost-function',
@@ -25,7 +25,7 @@ const sidebars = {
     },
     {
       type: 'category',
-      label: '🧠 ML Service (Python)',
+      label: 'ML Service (Python)',
       collapsed: false,
       items: [
         'ml-service/simulation-server',
@@ -37,7 +37,7 @@ const sidebars = {
     },
     {
       type: 'category',
-      label: '⚙️ Server (Node.js)',
+      label: 'Server (Node.js)',
       collapsed: false,
       items: [
         'server/express-setup',
@@ -49,7 +49,7 @@ const sidebars = {
     },
     {
       type: 'category',
-      label: '🖥️ Client (React)',
+      label: 'Client (React)',
       collapsed: false,
       items: [
         'client/app-structure',
@@ -64,7 +64,7 @@ const sidebars = {
     },
     {
       type: 'category',
-      label: '📡 API Reference',
+      label: 'API Reference',
       collapsed: false,
       items: [
         'api-reference/ml-endpoints',

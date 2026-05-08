@@ -3,7 +3,7 @@ sidebar_position: 1
 title: Express Setup
 ---
 
-# server/index.js — Application Entry Point
+# server/index.js - Application Entry Point
 
 **File**: `server/index.js` (89 lines)  
 **Role**: Node.js + Express server initialisation, middleware chain, and route mounting.
@@ -115,8 +115,8 @@ if (require.main === module) {
 module.exports = app;
 ```
 
-- `require.main === module` — only start listening when run directly, not when imported for testing
-- `module.exports = app` — exports the Express app for Vercel's serverless adapter
+- `require.main === module` - only start listening when run directly, not when imported for testing
+- `module.exports = app` - exports the Express app for Vercel's serverless adapter
 
 ## MongoDB Connection (`config/db.js`)
 
@@ -139,6 +139,6 @@ const connectDB = async () => {
 ```
 
 **Key configuration**:
-- `maxPoolSize: 5` — Atlas M0 free tier caps at 500 connections total; keeping the pool small is critical
-- `bufferCommands: true` — queue DB operations until the connection is ready (prevents errors during cold start)
-- `bufferTimeoutMS: 30000` — cap how long queued operations wait
+- `maxPoolSize: 5` - Atlas M0 free tier caps at 500 connections total; keeping the pool small is critical
+- `bufferCommands: true` - queue DB operations until the connection is ready (prevents errors during cold start)
+- `bufferTimeoutMS: 30000` - cap how long queued operations wait

@@ -3,7 +3,7 @@ sidebar_position: 1
 title: Simulation Server
 ---
 
-# simulation_server.py — Complete Walkthrough
+# simulation_server.py - Complete Walkthrough
 
 **File**: `ml_service/simulation_server.py` (837 lines)  
 **Role**: Flask-based entry point for the Analytics & ML tier. Hosts all endpoints, manages the singleton `SimulationState`, and orchestrates the active learning loop.
@@ -60,7 +60,7 @@ import re
 
 The `SimulationState` class is a **singleton** instantiated once at module load. Flask's dev server is single-threaded, so no locking is needed.
 
-### `__init__()` — Boot Sequence
+### `__init__()` - Boot Sequence
 
 ```python
 class SimulationState:
@@ -68,7 +68,7 @@ class SimulationState:
         # 1. Initialize cost model with cold-start defaults (α=5.0, β=3.0)
         self.cost_model = AdaptiveCostModel()
         
-        # 2. Initialize ML backbone (TF-IDF + SGD — zero downloads, 100% offline)
+        # 2. Initialize ML backbone (TF-IDF + SGD - zero downloads, 100% offline)
         self.backbone = SimpleBackbone(num_labels=2)
         
         # 3. Initialize ranker (needs cost_model reference for Score = H/C)
@@ -94,7 +94,7 @@ class SimulationState:
         }
 ```
 
-**Why three models?** To prove CAL-Log is actually better, we run Random and Entropy strategies "in the shadows" — they pick their own tasks, get trained on the ground-truth labels for those tasks, and their accuracy is compared. This eliminates the need for three separate human evaluators.
+**Why three models?** To prove CAL-Log is actually better, we run Random and Entropy strategies "in the shadows" - they pick their own tasks, get trained on the ground-truth labels for those tasks, and their accuracy is compared. This eliminates the need for three separate human evaluators.
 
 ### Dataset Loading
 

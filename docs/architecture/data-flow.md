@@ -5,7 +5,7 @@ title: Data Flow
 
 # Request Lifecycle & Data Flow
 
-This page traces the complete lifecycle of a single annotation — from the evaluator clicking a label button to the cost model updating and the next task appearing.
+This page traces the complete lifecycle of a single annotation - from the evaluator clicking a label button to the cost model updating and the next task appearing.
 
 ## End-to-End Annotation Flow
 
@@ -57,7 +57,7 @@ When the evaluator clicks a label, the React frontend **immediately** advances t
 - The `setSubmitting(false)` call happens right after the optimistic update, not after the fetch
 
 ```javascript
-// ResearchWorkspace.jsx — optimistic update pattern
+// ResearchWorkspace.jsx - optimistic update pattern
 const nextTasks = tasks.slice(1);
 if (nextTasks.length > 0) {
     setTasks(nextTasks);
@@ -91,7 +91,7 @@ The ML service maintains its own task pool (`state.clean_pool`) rather than rece
 
 ### 4. Fire-and-Forget Session Saves
 
-Session persistence is non-blocking — the `saveSession()` call uses `.catch()` instead of `await` to prevent slow MongoDB writes from blocking the UI:
+Session persistence is non-blocking - the `saveSession()` call uses `.catch()` instead of `await` to prevent slow MongoDB writes from blocking the UI:
 
 ```javascript
 fetch(`${SERVER_URL}/api/session/save`, {

@@ -24,9 +24,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
 );
 ```
 
-`React.StrictMode` runs components twice in development to catch side effects — this is why you might see doubled console logs during dev.
+`React.StrictMode` runs components twice in development to catch side effects - this is why you might see doubled console logs during dev.
 
-### `App.jsx` — Routing
+### `App.jsx` - Routing
 
 ```jsx
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";

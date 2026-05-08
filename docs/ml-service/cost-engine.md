@@ -3,7 +3,7 @@ sidebar_position: 2
 title: Cost Engine
 ---
 
-# cost_engine.py — Adaptive Cost Model
+# cost_engine.py - Adaptive Cost Model
 
 **File**: `ml_service/cost_engine.py` (203 lines)  
 **Role**: Implements the adaptive cost function $C(x) = \alpha + \beta \cdot \ln(1 + L(x))$ with OLS regression for real-time parameter estimation.
@@ -38,14 +38,14 @@ flowchart TD
 ```python
 class AdaptiveCostModel:
     def __init__(self):
-        self.alpha = 5.0  # Cold start — will be overwritten by regression
-        self.beta = 3.0   # Cold start — will be overwritten by regression
+        self.alpha = 5.0  # Cold start - will be overwritten by regression
+        self.beta = 3.0   # Cold start - will be overwritten by regression
         self.user_history = []  # [(log_length, time_seconds), ...]
 ```
 
 Both α and β start at conservative defaults. After the first 5 annotations with sufficient text-length variance, they are **entirely replaced** by OLS-derived values. The cold-start values are never used again.
 
-### `_heuristic_cost()` — Core Formula
+### `_heuristic_cost()` - Core Formula
 
 ```python
 def _heuristic_cost(self, log_length: float) -> float:
@@ -55,7 +55,7 @@ def _heuristic_cost(self, log_length: float) -> float:
 
 This is the simplest function in the system, but the most important. Every ranking decision flows through this multiplication.
 
-### `predict()` — Batch Cost Estimation
+### `predict()` - Batch Cost Estimation
 
 ```python
 def predict(self, text_lengths: list) -> np.ndarray:
@@ -67,7 +67,7 @@ def predict(self, text_lengths: list) -> np.ndarray:
 
 Called by `CALLogRanker.calculate_costs()` on every `/predict` request. Converts raw word counts to predicted seconds.
 
-### `update()` — OLS Regression
+### `update()` - OLS Regression
 
 This is the most mathematically dense function. See [OLS Regression](/mathematics/ols-regression) for the full derivation.
 
@@ -116,12 +116,12 @@ def update(self, new_interaction_logs: list):
 
 **Critical implementation details**:
 
-1. **Outlier filtering**: Any annotation taking >300 seconds (5 minutes) is discarded — the evaluator was likely distracted, not reading
+1. **Outlier filtering**: Any annotation taking >300 seconds (5 minutes) is discarded - the evaluator was likely distracted, not reading
 2. **Variance check**: When `std(log_lengths) < 0.3`, all texts are similar length and OLS can't distinguish α from β. Falls back to direct estimation.
 3. **R² logging**: The coefficient of determination is computed and logged so regression quality can be defended in the viva
 4. **Clamping**: Both parameters are bounded to prevent nonsensical predictions (e.g., negative cost)
 
-### `_get_speed_label()` — Classification
+### `_get_speed_label()` - Classification
 
 ```python
 def _get_speed_label(self) -> str:
@@ -133,9 +133,9 @@ def _get_speed_label(self) -> str:
         return "BALANCED"
 ```
 
-Simple threshold classification on β. This label appears in the Spy Window but has **no effect** on task selection — the cost formula handles adaptation implicitly.
+Simple threshold classification on β. This label appears in the Spy Window but has **no effect** on task selection - the cost formula handles adaptation implicitly.
 
-### `get_reading_pattern()` — Full Report
+### `get_reading_pattern()` - Full Report
 
 Returns a dictionary consumed by the Spy Window's reading pattern display:
 

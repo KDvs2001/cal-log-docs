@@ -9,7 +9,7 @@ CAL-Log is implemented via a modern, strictly separated **4-Tier Architecture** 
 
 ## Architecture Diagram
 
-![CAL-Log 4-Tier Architecture Diagram](/img/Architecture_Diagram.png)
+![CAL-Log 4-Tier Architecture Diagram](/img/Architecture_Diagram.webp)
 
 ## Tier 1: Presentation (React + Vite)
 
@@ -19,7 +19,7 @@ The presentation tier delivers a high-performance UI leveraging **optimistic sta
 
 - **Optimistic UI**: The annotation button re-enables immediately after click, before the network request completes. This eliminates the latency bottleneck that would bias the `time_taken` measurement.
 - **Component Isolation**: The `TaskCard` is visually separated from the `SpyWindow` to prevent the mathematical readouts from adding cognitive load during annotation.
-- **Recharts (SVG-based)**: Chosen over canvas-based charting libraries because SVG charts render crisply at any zoom level — critical for viva presentation on projectors.
+- **Recharts (SVG-based)**: Chosen over canvas-based charting libraries because SVG charts render crisply at any zoom level - critical for viva presentation on projectors.
 
 ### Key Components
 | Component | Lines | Purpose |

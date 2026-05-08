@@ -6,7 +6,7 @@ title: Introduction
 
 # CAL-Log: Cost-Aware Active Learning with Logarithmic Cost
 
-**CAL-Log** is an advanced research platform designed to empirically evaluate active learning strategies for text classification. Unlike traditional uncertainty sampling techniques that blindly pick the most uncertain documents — often selecting long, exhausting texts — CAL-Log selects annotation tasks based on **information gain per unit of cognitive cost**, adapting dynamically to individual annotator reading speeds.
+**CAL-Log** is an advanced research platform designed to empirically evaluate active learning strategies for text classification. Unlike traditional uncertainty sampling techniques that blindly pick the most uncertain documents - often selecting long, exhausting texts - CAL-Log selects annotation tasks based on **information gain per unit of cognitive cost**, adapting dynamically to individual annotator reading speeds.
 
 ## Research Problem
 
@@ -24,7 +24,7 @@ $$
 
 Where:
 - $H(x)$ = Shannon entropy from the classifier's softmax output (information value)
-- $C(x) = \alpha + \beta \cdot \ln(1 + L(x))$ — adaptive cost function
+- $C(x) = \alpha + \beta \cdot \ln(1 + L(x))$ - adaptive cost function
 - $\alpha$ = fixed cognitive overhead (task-switching, reading prompt, deciding)
 - $\beta$ = reading speed multiplier, estimated via OLS regression on the annotator's real-time telemetry
 
@@ -36,9 +36,9 @@ This system accompanies the published paper:
 
 ## Research Objectives
 
-1. **Empirical Cost Optimization** — Demonstrate that a cost-aware scoring engine reduces total annotation duration compared to random sampling and pure entropy sampling baselines.
-2. **Fatigue Modeling** — Accurately predict and account for annotator fatigue using a dynamic OLS regression model based on an alpha-beta logarithmic reading curve.
-3. **Transparent Evaluation** — Provide absolute structural transparency to the evaluator via the "Spy Window", exposing real-time Shannon entropy values, cost penalty calculations, and dynamic algorithm behaviour.
+1. **Empirical Cost Optimization** - Demonstrate that a cost-aware scoring engine reduces total annotation duration compared to random sampling and pure entropy sampling baselines.
+2. **Fatigue Modeling** - Accurately predict and account for annotator fatigue using a dynamic OLS regression model based on an alpha-beta logarithmic reading curve.
+3. **Transparent Evaluation** - Provide absolute structural transparency to the evaluator via the "Spy Window", exposing real-time Shannon entropy values, cost penalty calculations, and dynamic algorithm behaviour.
 
 ## System Demo
 
@@ -68,10 +68,10 @@ CAL-Log is implemented as a **4-tier architecture**:
 
 ## Quick Navigation
 
-- **[Architecture Overview](./architecture/overview)** — 4-tier system design and component relationships
-- **[Mathematics](./mathematics/cost-function)** — The cost function, OLS regression, entropy scoring
-- **[ML Service](./ml-service/simulation-server)** — Line-by-line code walkthroughs of the Python backend
-- **[Server](./server/express-setup)** — Node.js API routes and database models
-- **[Client](./client/app-structure)** — React component hierarchy and UI design decisions
-- **[API Reference](./api-reference/ml-endpoints)** — Full endpoint documentation
-- **[Citations](./citations)** — All academic and technical references
+- **[Architecture Overview](./architecture/overview)** - 4-tier system design and component relationships
+- **[Mathematics](./mathematics/cost-function)** - The cost function, OLS regression, entropy scoring
+- **[ML Service](./ml-service/simulation-server)** - Line-by-line code walkthroughs of the Python backend
+- **[Server](./server/express-setup)** - Node.js API routes and database models
+- **[Client](./client/app-structure)** - React component hierarchy and UI design decisions
+- **[API Reference](./api-reference/ml-endpoints)** - Full endpoint documentation
+- **[Citations](./citations)** - All academic and technical references

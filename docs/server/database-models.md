@@ -47,7 +47,7 @@ const AnnotationSessionSchema = new mongoose.Schema({
 ```
 
 **Why embed annotations instead of a separate collection?**
-- Each session has ~50 annotations max — well within MongoDB's 16MB document limit
+- Each session has ~50 annotations max - well within MongoDB's 16MB document limit
 - Embedding avoids a separate collection + JOIN-equivalent (`$lookup`)
 - All session data loads in a single `findOne` query
 

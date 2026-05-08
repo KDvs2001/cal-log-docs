@@ -5,7 +5,7 @@ title: OLS Regression
 
 # OLS Regression for Parameter Estimation
 
-The alpha (α) and beta (β) parameters of the cost function are **not hardcoded** — they are derived entirely from data using Ordinary Least Squares (OLS) regression on the annotator's real-time annotation telemetry.
+The alpha (α) and beta (β) parameters of the cost function are **not hardcoded** - they are derived entirely from data using Ordinary Least Squares (OLS) regression on the annotator's real-time annotation telemetry.
 
 ## The Regression Problem
 
@@ -35,7 +35,16 @@ $$
 \mathbf{A} = \begin{bmatrix} 1 & \ln(1 + L_1) \\ 1 & \ln(1 + L_2) \\ \vdots & \vdots \\ 1 & \ln(1 + L_n) \end{bmatrix}, \quad \mathbf{t} = \begin{bmatrix} t_1 \\ t_2 \\ \vdots \\ t_n \end{bmatrix}
 $$
 
-This is solved via `np.linalg.lstsq()` — NumPy's least-squares solver.
+This is solved via `np.linalg.lstsq()` - NumPy's least-squares solver.
+
+```mermaid
+xychart-beta
+    title "Full OLS Regression (High Variance in Text Lengths)"
+    x-axis "ln(1 + Word Count)" [1, 2, 3, 4, 5]
+    y-axis "Time Taken (seconds)" 0 --> 30
+    line [8, 13, 18, 23, 28]
+```
+*The steepness of the line is Beta ($\beta$), and where it hits the y-axis is Alpha ($\alpha$).*
 
 ## Implementation Detail
 
@@ -98,6 +107,15 @@ $$
 
 This direct estimation attributes 20% of the average time to fixed overhead and the remainder to reading speed.
 
+```mermaid
+xychart-beta
+    title "Low Variance Fallback (Texts are same length)"
+    x-axis "ln(1 + Word Count)" [4.0, 4.1, 4.2, 4.3, 4.4]
+    y-axis "Time Taken (seconds)" 0 --> 30
+    line [20, 20, 20, 20, 20]
+```
+*Because the points are clustered, a slope cannot be reliably drawn. We fall back to a flat average line.*
+
 ## Regression Quality Metric (R²)
 
 The coefficient of determination is logged after each update:
@@ -108,9 +126,9 @@ $$
 
 | R² Value | Interpretation |
 |----------|----------------|
-| > 0.8 | Excellent fit — log-cost model captures reading speed well |
-| 0.5 — 0.8 | Moderate fit — some noise from task difficulty variation |
-| < 0.5 | Poor fit — reader behaviour is erratic or distracted |
+| > 0.8 | Excellent fit - log-cost model captures reading speed well |
+| 0.5 - 0.8 | Moderate fit - some noise from task difficulty variation |
+| < 0.5 | Poor fit - reader behaviour is erratic or distracted |
 
 ## Parameter Clamping
 

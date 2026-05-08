@@ -3,7 +3,7 @@ sidebar_position: 3
 title: TaskCard
 ---
 
-# TaskCard.jsx — Annotation Interface
+# TaskCard.jsx - Annotation Interface
 
 **File**: `client/src/components/workspace/TaskCard.jsx` (121 lines)  
 **Role**: Core binary classification interface. Deliberately minimal to reduce cognitive load and preserve measurement accuracy.
@@ -48,7 +48,7 @@ const cleanText = (text) => {
 </div>
 ```
 
-`Math.floor()` rounds down so the display doesn't flicker with decimal values. The timer shows elapsed seconds since the task appeared — this provides transparency to the evaluator about how long they've been reading.
+`Math.floor()` rounds down so the display doesn't flicker with decimal values. The timer shows elapsed seconds since the task appeared - this provides transparency to the evaluator about how long they've been reading.
 
 ## Annotation Buttons
 

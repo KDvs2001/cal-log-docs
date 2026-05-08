@@ -3,14 +3,14 @@ sidebar_position: 4
 title: Spy Analysis
 ---
 
-# SpyAnalysis.jsx — Real-Time Transparency Panel
+# SpyAnalysis.jsx - Real-Time Transparency Panel
 
 **File**: `client/src/components/workspace/SpyAnalysis.jsx` (57 lines)  
 **Role**: The "Spy Window" sidebar coordinator that hosts four sub-panels exposing the active learning mathematics in real-time.
 
 ## Architecture
 
-SpyAnalysis is a **composition component** — it doesn't contain complex logic itself but arranges four specialised sub-components:
+SpyAnalysis is a **composition component** - it doesn't contain complex logic itself but arranges four specialised sub-components:
 
 ```jsx
 const SpyAnalysis = ({ selectionLogic, metrics, history, interactionLog, shadowMetrics, onShowAlphaBetaPanel }) => {
@@ -71,4 +71,4 @@ Detailed audit trail showing exactly which tasks each shadow strategy picked and
 )}
 ```
 
-The "What do these mean?" button opens the `AlphaBetaImpactPanel` — a modal explaining how α and β affect task selection, designed for evaluators who are curious about the mathematics.
+The "What do these mean?" button opens the `AlphaBetaImpactPanel` - a modal explaining how α and β affect task selection, designed for evaluators who are curious about the mathematics.

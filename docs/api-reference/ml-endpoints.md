@@ -3,7 +3,7 @@ sidebar_position: 1
 title: ML Service Endpoints
 ---
 
-# ML Service API (Flask — Port 9090)
+# ML Service API (Flask - Port 9090)
 
 All endpoints are served by `simulation_server.py`.
 
@@ -51,7 +51,7 @@ All endpoints are served by `simulation_server.py`.
 | Field | Description |
 |-------|-------------|
 | `tasks` | Top 25 ranked tasks (sorted by Score = H/C) |
-| `tasks[].true_label` | Always `null` — ground truth is never leaked to the client |
+| `tasks[].true_label` | Always `null` - ground truth is never leaked to the client |
 | `shadow_metrics` | What each strategy would have picked (for Spy Window) |
 | `pool_remaining` | How many unlabeled tasks remain |
 
@@ -117,7 +117,7 @@ Resets: backbone weights, cost model, shadow models, all buffers, accuracy histo
 
 ## `GET /health`
 
-**Purpose**: Health check — frontend polls this to verify the service is alive.
+**Purpose**: Health check - frontend polls this to verify the service is alive.
 
 ### Response
 ```json

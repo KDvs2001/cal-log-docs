@@ -3,7 +3,7 @@ sidebar_position: 2
 title: Server Endpoints
 ---
 
-# Node.js Server API (Express — Port 5001)
+# Node.js Server API (Express - Port 5001)
 
 All endpoints are mounted under `/api` and served by `server/index.js`.
 

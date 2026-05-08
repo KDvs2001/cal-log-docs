@@ -3,7 +3,7 @@ sidebar_position: 4
 title: SimpleBackbone
 ---
 
-# simple_backbone.py — ML Model Pipeline
+# simple_backbone.py - ML Model Pipeline
 
 **File**: `ml_service/utilities/simple_backbone.py` (106 lines)  
 **Role**: Provides a fast, offline-first text classification model using HashingVectorizer + SGDClassifier. This is the model that produces the probability estimates fed into the entropy calculation.
@@ -20,7 +20,7 @@ title: SimpleBackbone
 | **Incremental learning** | Full fine-tuning required | **`partial_fit()` in under 100ms** |
 | **Offline capable** | Needs download on first run | **100% offline** |
 
-For the active learning simulation, the model's absolute accuracy doesn't matter — what matters is the **relative uncertainty** between texts. A TF-IDF + SGD model provides sufficient entropy signal for ranking while enabling true online learning via `partial_fit()`.
+For the active learning simulation, the model's absolute accuracy doesn't matter - what matters is the **relative uncertainty** between texts. A TF-IDF + SGD model provides sufficient entropy signal for ranking while enabling true online learning via `partial_fit()`.
 
 ## Class: `SimpleBackbone`
 
@@ -38,8 +38,8 @@ class SimpleBackbone:
 
 **HashingVectorizer** uses the "hashing trick" to map tokens to a **fixed-size** sparse matrix:
 - No vocabulary dictionary → flat memory usage even on huge corpora
-- `n_features=2**14` (16,384) — good balance between hash collisions and speed
-- `alternate_sign=False` — keeps all values positive for consistency with TF-IDF interpretation
+- `n_features=2**14` (16,384) - good balance between hash collisions and speed
+- `alternate_sign=False` - keeps all values positive for consistency with TF-IDF interpretation
 
 ### SGDClassifier Configuration
 
@@ -58,7 +58,7 @@ class SimpleBackbone:
 
 **Why `penalty='l2'`?** L2 regularisation prevents the model from memorising the small batches it sees during incremental learning. With only 5 new samples per `partial_fit()` call, overfitting is a real risk.
 
-### `_warmup()` — Classifier Initialisation
+### `_warmup()` - Classifier Initialisation
 
 ```python
 def _warmup(self):
@@ -70,7 +70,7 @@ def _warmup(self):
 
 `partial_fit()` requires a `classes=` argument on its **first call** to initialise the weight matrix dimensions. The warmup uses a dummy sample to set this up, so subsequent calls don't need to pass `classes` again.
 
-### `predict_proba()` — Probability Estimates
+### `predict_proba()` - Probability Estimates
 
 ```python
 def predict_proba(self, texts):
@@ -80,7 +80,7 @@ def predict_proba(self, texts):
 
 Returns a `(N, 2)` array where each row is `[P(Negative), P(Positive)]`. These probabilities are fed directly into `CALLogRanker.calculate_entropy()`.
 
-### `predict()` — Hard Labels
+### `predict()` - Hard Labels
 
 ```python
 def predict(self, texts):
@@ -90,7 +90,7 @@ def predict(self, texts):
 
 Returns class labels (0 or 1). Used only during the **validation phase** to compute accuracy against the held-out test set.
 
-### `partial_fit()` — Online Learning
+### `partial_fit()` - Online Learning
 
 ```python
 def partial_fit(self, texts, labels):
@@ -104,7 +104,7 @@ def partial_fit(self, texts, labels):
 
 This is the key method for **incremental learning**:
 - Called every 5 annotations with the new batch
-- Does not reprocess old data — only the 5 new samples update the weights
+- Does not reprocess old data - only the 5 new samples update the weights
 - `classes=self.classes_` is passed every time for safety (required by some sklearn versions)
 - Warning logged when only one class is present (model can't learn a decision boundary from one class)
 

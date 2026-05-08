@@ -3,7 +3,7 @@ sidebar_position: 5
 title: ROI Calculator
 ---
 
-# ROICalculator.jsx — Financial Impact Projection
+# ROICalculator.jsx - Financial Impact Projection
 
 **File**: `client/src/components/ROICalculator.jsx` (214 lines)  
 **Role**: Interactive calculator that translates CAL-Log's time savings into projected financial savings for enterprise annotation campaigns.

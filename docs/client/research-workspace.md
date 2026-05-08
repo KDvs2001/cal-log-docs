@@ -3,7 +3,7 @@ sidebar_position: 2
 title: ResearchWorkspace
 ---
 
-# ResearchWorkspace.jsx — Main Container Component
+# ResearchWorkspace.jsx - Main Container Component
 
 **File**: `client/src/components/ResearchWorkspace.jsx` (725 lines)  
 **Role**: Main container component managing state, API communication, and child component orchestration.
@@ -50,7 +50,7 @@ const [fatiguePauseTime, setFatiguePauseTime] = useState(0);
 
 ## Key Functions
 
-### `fetchNextBatch()` — Task Loading with Retry
+### `fetchNextBatch()` - Task Loading with Retry
 
 ```javascript
 const fetchNextBatch = async (retryCount = 0) => {
@@ -77,7 +77,7 @@ const fetchNextBatch = async (retryCount = 0) => {
 
 **Retry strategy**: 4 retries with exponential backoff (3s → 6s → 12s → 20s) to handle HuggingFace Spaces cold starts.
 
-### `handleAnnotate()` — The Core Annotation Handler
+### `handleAnnotate()` - The Core Annotation Handler
 
 ```javascript
 const handleAnnotate = async (label) => {
@@ -103,7 +103,7 @@ const handleAnnotate = async (label) => {
     const data = await response.json();
 
     if (data.trained) {
-        // Model was retrained — fetch fresh rankings
+        // Model was retrained - fetch fresh rankings
         pollMetrics();
         fetchNextBatch();
     }
@@ -162,13 +162,13 @@ The main layout uses a 12-column CSS Grid:
 
 ```jsx
 <div className="grid grid-cols-12 gap-6">
-    {/* Left: 8 columns — WorkspaceHeader + TaskCard */}
+    {/* Left: 8 columns - WorkspaceHeader + TaskCard */}
     <div className="col-span-8">
         <WorkspaceHeader />
         <TaskCard />
     </div>
 
-    {/* Right: 4 columns — Spy Window */}
+    {/* Right: 4 columns - Spy Window */}
     <div className="col-span-4">
         <SpyAnalysis />
     </div>
