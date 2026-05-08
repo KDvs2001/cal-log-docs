@@ -40,7 +40,12 @@ const sidebars = {
       label: 'Research Benchmark',
       collapsed: false,
       items: [
-        'ml-service/research-benchmark',
+        'research-benchmark/imports-config',
+        'research-benchmark/dataset-factory',
+        'research-benchmark/core-math',
+        'research-benchmark/backbone-calibration',
+        'research-benchmark/cost-agent',
+        'research-benchmark/execution-loop',
       ],
     },
     {
