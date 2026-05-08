@@ -16,7 +16,7 @@ title: Cost Engine
 
 ```mermaid
 flowchart TD
-    A[Annotator completes 5 tasks] --> B[Collect (Length, Time) pairs]
+    A[Annotator completes 5 tasks] --> B["Collect (Length, Time) pairs"]
     B --> C{Are there outliers?}
     C -- Yes (>5 min) --> D[Discard outlier]
     C -- No --> E
