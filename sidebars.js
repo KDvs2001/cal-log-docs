@@ -5,7 +5,7 @@ const sidebars = {
     {
       type: 'category',
       label: 'Architecture',
-      collapsed: false,
+      collapsed: true,
       items: [
         'architecture/overview',
         'architecture/data-flow',
@@ -16,7 +16,7 @@ const sidebars = {
     {
       type: 'category',
       label: 'Mathematics',
-      collapsed: false,
+      collapsed: true,
       items: [
         'mathematics/cost-function',
         'mathematics/ols-regression',
@@ -27,7 +27,7 @@ const sidebars = {
     {
       type: 'category',
       label: 'ML Service (Python)',
-      collapsed: false,
+      collapsed: true,
       items: [
         'ml-service/simulation-server',
         'ml-service/cost-engine',
@@ -39,7 +39,7 @@ const sidebars = {
     {
       type: 'category',
       label: 'Research Benchmark',
-      collapsed: false,
+      collapsed: true,
       items: [
         'research-benchmark/imports-config',
         'research-benchmark/dataset-factory',
@@ -52,7 +52,7 @@ const sidebars = {
     {
       type: 'category',
       label: 'Benchmark Results',
-      collapsed: false,
+      collapsed: true,
       items: [
         'benchmark-results/overview',
         'benchmark-results/main-results',
@@ -62,7 +62,7 @@ const sidebars = {
     {
       type: 'category',
       label: 'Server (Node.js)',
-      collapsed: false,
+      collapsed: true,
       items: [
         'server/express-setup',
         'server/session-routes',
@@ -74,7 +74,7 @@ const sidebars = {
     {
       type: 'category',
       label: 'Client (React)',
-      collapsed: false,
+      collapsed: true,
       items: [
         'client/app-structure',
         'client/research-workspace',
@@ -89,7 +89,7 @@ const sidebars = {
     {
       type: 'category',
       label: 'API Reference',
-      collapsed: false,
+      collapsed: true,
       items: [
         'api-reference/ml-endpoints',
         'api-reference/server-endpoints',
