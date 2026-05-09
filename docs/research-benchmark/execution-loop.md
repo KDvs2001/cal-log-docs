@@ -35,7 +35,7 @@ def run_study():
 
 :::danger[Architectural Rationale]
 **`run_study()` - Multi-Engine Deterministic Seeding**
-Active learning algorithmic evaluation demands absolute strict stochastic control. Systemic randomness permeates at multiple independent computational levels: Python's standard `random` module, NumPy tensor shuffling, PyTorch CPU tensor initialization, and PyTorch CUDA kernel execution matrices. Explicitly seeding all four of these distinct random engines guarantees mathematical reproducibility—ensuring independent academic execution of this script will yield identical F1 and Cost trace trajectories.
+Active learning algorithmic evaluation demands absolute strict stochastic control. Systemic randomness permeates at multiple independent computational levels: Python's standard `random` module, NumPy tensor shuffling, PyTorch CPU tensor initialization, and PyTorch CUDA kernel execution matrices. Explicitly seeding all four of these distinct random engines guarantees mathematical reproducibility - ensuring independent academic execution of this script will yield identical F1 and Cost trace trajectories.
 :::
 
 ```python

@@ -10,6 +10,7 @@ const sidebars = {
         'architecture/overview',
         'architecture/data-flow',
         'architecture/deployment',
+        'architecture/system-boundaries',
       ],
     },
     {

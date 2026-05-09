@@ -6,7 +6,7 @@ import rehypeKatex from 'rehype-katex';
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'CAL-Log Documentation',
-  tagline: 'Cost-Aware Active Learning with Logarithmic Cost — Technical Reference',
+  tagline: 'Cost-Aware Active Learning with Logarithmic Cost - Technical Reference',
   favicon: 'img/favicon.ico',
 
   future: {
@@ -108,7 +108,7 @@ const config = {
             ],
           },
         ],
-        copyright: `CAL-Log Research Tool — Vihanga Supasan Kariyakaranage © ${new Date().getFullYear()}. Built with Docusaurus.`,
+        copyright: `CAL-Log Research Tool - Vihanga Supasan Kariyakaranage © ${new Date().getFullYear()}. Built with Docusaurus.`,
       },
       prism: {
         theme: prismThemes.github,

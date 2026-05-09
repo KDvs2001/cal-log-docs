@@ -8,6 +8,30 @@ title: Introduction
 
 **CAL-Log** is an advanced research platform designed to empirically evaluate active learning strategies for text classification. Unlike traditional uncertainty sampling techniques that blindly pick the most uncertain documents - often selecting long, exhausting texts - CAL-Log selects annotation tasks based on **information gain per unit of cognitive cost**, adapting dynamically to individual annotator reading speeds.
 
+<div style={{ margin: '2rem 0' }}>
+  <a 
+    href="/CAL-Log_Thesis_Vihanga_Kariyakaranage.pdf" 
+    target="_blank" 
+    rel="noopener noreferrer" 
+    style={{
+      display: 'inline-flex',
+      alignItems: 'center',
+      gap: '0.5rem',
+      backgroundColor: 'var(--ifm-color-primary)',
+      color: '#fff',
+      padding: '0.8rem 1.5rem',
+      borderRadius: '8px',
+      fontWeight: 'bold',
+      textDecoration: 'none',
+      boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
+      transition: 'all 0.2s ease',
+    }}
+  >
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+    Download Full Thesis (PDF)
+  </a>
+</div>
+
 ## Research Problem
 
 In real-world NLP annotation pipelines, the dominant cost is **human time**. Standard active learning methods (e.g., uncertainty sampling, BADGE) optimise for model accuracy but ignore the variable cost of annotating different documents. A 500-word article takes 5x longer to annotate than a 100-word tweet, yet both count equally in traditional sampling strategies.
