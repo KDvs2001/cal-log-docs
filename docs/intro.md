@@ -32,13 +32,10 @@ Where:
 
 This system accompanies the following published and accepted papers:
 
-> **Kariyakaranage, V. S. & Athuraliya, B.** (2026). "AL-X0: Cost-Aware Active Learning for Cloud-Scale NLP via Zero-Shot Proxy Valuation." *2026 International Conference on Artificial Intelligence in Information and Communication (ICAIIC)*, pp. 657-662. DOI: [10.1109/ICAIIC68212.2026.11454245](https://doi.org/10.1109/ICAIIC68212.2026.11454245)
+import PublicationCards from '@site/src/components/PublicationCards';
 
-> **Kariyakaranage, V. S. & Athuraliya, B.** (2026). "CAL-Log: Calibration-Aware Logarithmic Cost Modeling for Active Learning in Low-Resource NLP." *2026 IEEE International Research Conference on Smart Computing and Systems Engineering (SCSE)*, vol. 9, pp. 1-6. DOI: [10.1109/SCSE70081.2026.11499970](https://doi.org/10.1109/SCSE70081.2026.11499970)
+<PublicationCards />
 
-> **Kariyakaranage, V. S. & Athuraliya, B.** (2026). "Boundary Conditions of Cost-Aware Active Learning: A Multi-Dataset Taxonomy of Calibration and Length-Variance Failure Modes." *2026 IEEE 15th International Conference on Communication Systems and Network Technologies (CSNT)*, pp. 1317-1322. DOI: [10.1109/CSNT69054.2026.11502457](https://doi.org/10.1109/CSNT69054.2026.11502457)
-
-> **Kariyakaranage, V. S. & Athuraliya, B.** (2026). "CAL-Log: Cost-Aware Active Learning with Logarithmic Cognitive Effort Modeling and Online Adaptation to Human Annotation Behavior." *Accepted to the 64th Annual Meeting of the Association for Computational Linguistics (ACL 2026) Student Research Workshop (SRW)*. San Diego, California, United States.
 
 ## Research Objectives
 
@@ -48,8 +45,9 @@ This system accompanies the following published and accepted papers:
 
 ## System Demo
 
-> [!TIP]
-> **Watch the full 8-minute system walkthrough below:**
+:::tip[System Walkthrough]
+**Watch the full 8-minute system walkthrough below:**
+:::
 
 <div style={{ position: 'relative', paddingBottom: '56.25%', height: 0, overflow: 'hidden', maxWidth: '100%', borderRadius: '8px', marginBottom: '2rem' }}>
   <iframe 
@@ -76,6 +74,7 @@ CAL-Log is implemented as a **4-tier architecture**:
 
 - **[Architecture Overview](./architecture/overview)** - 4-tier system design and component relationships
 - **[Mathematics](./mathematics/cost-function)** - The cost function, OLS regression, entropy scoring
+- **[Research Benchmark](./research-benchmark/imports-config)** - 10-Dataset active learning evaluation loop and SBERT redundancy checking
 - **[ML Service](./ml-service/simulation-server)** - Line-by-line code walkthroughs of the Python backend
 - **[Server](./server/express-setup)** - Node.js API routes and database models
 - **[Client](./client/app-structure)** - React component hierarchy and UI design decisions
