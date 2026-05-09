@@ -84,3 +84,65 @@ Beating Random sampling is not enough; the improvements must be statistically si
 ![Effect Size](/img/benchmark/main/fig6_effect_sizes_all_strategies.png)
 
 As demonstrated above, CAL-Log maintains a strong negative Cohen's d effect size (indicating lower cost for higher F1) relative to all baselines. Furthermore, a **Wilcoxon signed-rank test** confirms the statistical significance of these results ($p=0.031$), proving that the efficiency gains are structural, not the result of random chance.
+
+---
+
+## 5. Redundancy Filtering & Semantic Coverage
+
+One of the most common ways an Active Learning budget is wasted is by selecting "near-duplicate" samples. In large text datasets, many documents carry the same semantic meaning but differ slightly in word choice.
+
+CAL-Log implements a **Geometric Redundancy Filter** using SBERT (Sentence-BERT) embeddings.
+
+### Semantic Deduplication Logic
+Before a batch is presented to the annotator, CAL-Log calculates the cosine similarity between the current candidates and the already labeled set. 
+If a highly informative sample (high entropy) is semantically identical to something the user has already seen, a **penalty multiplier** is applied to its score:
+
+$$
+\text{FinalScore} = \text{CAL-LogScore} \times \text{RedundancyPenalty}
+$$
+
+This ensures the annotator's time is spent exploring "new" areas of the feature space, rather than providing redundant labels for the same concept.
+
+---
+
+## 6. Boundary Conditions & Failure Modes
+
+A mature academic defense requires acknowledging where a system *fails*. CAL-Log has specific "boundary conditions" where its advantages diminish.
+
+### A. Low Length Variance
+If a dataset consists of texts with almost identical lengths (e.g., all samples are exactly 10 words), the cost model $C(x)$ becomes a constant factor. In this scenario, the cost-normalization cancels out, and CAL-Log mathematically simplifies back into standard **Entropy Sampling**.
+
+### B. Severe Model Overconfidence
+If the underlying classifier is severely miscalibrated and predicts $P=1.0$ for an incorrect class, the entropy $H(x)$ will be $0$. CAL-Log will "blindly" trust the model and skip this sample, even if it is actually informative. This is why the **Per-Round Calibration Monitoring** (Temperature Scaling) is a critical dependency for CAL-Log's stability.
+
+### C. Extreme Class Imbalance
+In datasets with extremely rare minority classes (e.g., 0.1% prevalence), uncertainty-based sampling often struggles to find the first few minority examples. In these "needle-in-a-haystack" scenarios, pure geometric diversity (CoreSet) or hybrid methods (BADGE) may temporarily outperform CAL-Log until the first few minority samples are discovered.
+
+---
+
+## 7. Dynamic Adaptation via OLS
+
+A static cost model is insufficient because human annotators vary in reading speed by up to 2x, and their speed changes throughout a session due to fatigue.
+
+### The Ordinary Least Squares (OLS) Regression
+CAL-Log doesn't just guess the cost parameters ($\alpha$ and $\beta$); it learns them in real-time. Every time the annotator labels a sample, the system records the precise interaction time. 
+
+Using a sliding window of the last $N$ interactions, the **ML Service** runs an OLS regression:
+- **Independent Variable:** $\ln(1 + \text{TextLength})$
+- **Dependent Variable:** Recorded Time
+
+This allows the system to "personalize" the acquisition function to the specific user. If you are a fast reader, $\beta$ will be low, and the system will feel comfortable giving you longer, more complex documents. If you start to slow down (fatigue), $\beta$ rises, and the acquisition function automatically starts prioritizing shorter documents to maximize your remaining energy.
+
+---
+
+## 8. Cost-Efficiency vs. Label-Efficiency
+
+A common question in Active Learning research is: *"Why measure time instead of just the number of labels?"*
+
+### The "Label Counting" Fallacy
+Traditional AL papers report results in terms of "Number of Samples". This assumes that every sample is an equal unit of effort. In text classification, this is a fallacy. 
+
+**Benchmark Evidence:**
+As shown in the [Main Results](/docs/benchmark-results/main-results), CAL-Log reached an F1 score of **0.80 in 38.3 minutes**, while standard Entropy sampling required **148.5 minutes** for the same performance. 
+
+If we only counted labels, these two strategies might look similar. But by measuring **Cost-AULC (Area Under Learning Curve relative to time)**, we prove that CAL-Log provides a **3.88x speedup** in real-world human effort. This is the difference between a project being finished in a single afternoon versus taking two full workdays.
