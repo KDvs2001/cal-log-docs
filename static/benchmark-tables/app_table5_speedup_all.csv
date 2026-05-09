@@ -1,0 +1,8 @@
+,SetFit/20_newsgroups,ag_news,amazon_polarity,dair-ai/emotion,dbpedia_14,rotten_tomatoes,stanfordnlp/imdb,tweet_eval,yahoo_answers_topics,yelp_polarity,MEAN
+Entropy,,0.88,1.19,,0.99,0.85,0.43,,,0.83,0.86
+LeastConfidence,,0.88,1.12,,0.87,1.11,0.72,,,1.2,0.98
+Margin,,0.71,1.29,,1.05,0.77,0.55,,,1.35,0.95
+CoreSet,,0.82,0.98,,1.1,0.91,0.45,,,1.05,0.88
+BADGE,,0.8,1.02,,1.07,0.76,0.55,,,1.07,0.88
+CAL-Linear,,1.04,3.27,,2.12,1.65,3.94,,,5.56,2.93
+CAL-Log,,1.16,2.87,,2.26,1.94,2.31,,,5.52,2.68

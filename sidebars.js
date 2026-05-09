@@ -50,6 +50,16 @@ const sidebars = {
     },
     {
       type: 'category',
+      label: 'Benchmark Results',
+      collapsed: false,
+      items: [
+        'benchmark-results/overview',
+        'benchmark-results/main-results',
+        'benchmark-results/appendix-results',
+      ],
+    },
+    {
+      type: 'category',
       label: 'Server (Node.js)',
       collapsed: false,
       items: [

@@ -1,0 +1,9 @@
+strategy,Mean F1,Std F1
+Random,0.682,0.109
+Entropy,0.657,0.134
+LeastConfidence,0.716,0.068
+Margin,0.744,0.046
+CoreSet,0.694,0.088
+BADGE,0.741,0.072
+CAL-Linear,0.648,0.13
+CAL-Log,0.691,0.125

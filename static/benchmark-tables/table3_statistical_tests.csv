@@ -1,0 +1,8 @@
+Comparison,N,p-value,Sig,Cohen d,Mean diff (min),Improvement %
+CAL-Log vs Random,6,0.0313,✓,-1.211,-55.4,59.2
+CAL-Log vs LeastConfidence,6,0.0832,✗,-0.882,-67.6,63.9
+CAL-Log vs BADGE,6,0.1184,✗,-0.769,-88.3,69.8
+CAL-Log vs Margin,6,0.1385,✗,-0.719,-82.8,68.4
+CAL-Log vs Entropy,6,0.1601,✗,-0.673,-110.3,74.2
+CAL-Log vs CoreSet,6,0.1605,✗,-0.672,-102.6,72.8
+CAL-Log vs CAL-Linear,6,0.4417,✗,0.341,6.0,-18.5

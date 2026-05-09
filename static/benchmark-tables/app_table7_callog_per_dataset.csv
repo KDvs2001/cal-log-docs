@@ -1,0 +1,11 @@
+Dataset,Length,AvgWords,Cost→0.70,Cost→0.80,AUC,ECE,F1@30,F1@60,F1@90,F1 Final
+amazon_polarity,Long,~120 words,25.358,29.022,0.831,0.078,0.906,0.89,0.921,0.936
+stanfordnlp/imdb,Long,~230 words,40.678,99.543,0.69,0.087,0.636,0.719,0.798,0.855
+yelp_polarity,Long,~150 words,18.63,18.63,0.854,0.06,0.905,0.891,0.774,0.9
+ag_news,Medium,~45 words,22.821,29.918,0.722,0.065,0.805,0.816,0.859,0.876
+SetFit/20_newsgroups,Multi,~200 words,,,0.211,0.283,0.062,0.188,0.333,0.458
+dbpedia_14,Multi,~55 words,25.717,31.547,0.796,0.099,0.799,0.96,0.307,0.649
+yahoo_answers_topics,Multi,~90 words,,,0.432,0.253,0.286,0.576,0.618,0.477
+dair-ai/emotion,Short,~15 words,,,0.272,0.13,0.301,0.003,0.011,0.387
+rotten_tomatoes,Short,~18 words,17.014,20.899,0.794,0.077,0.606,0.823,0.77,0.831
+tweet_eval,Short,~18 words,,,0.494,0.209,0.498,0.542,0.542,0.542

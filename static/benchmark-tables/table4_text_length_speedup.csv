@@ -1,0 +1,5 @@
+length_cat,Mean Speedup,Min,Max,N Datasets
+Long,3.56,2.31,5.52,3
+Medium,1.16,1.16,1.16,1
+Multi,2.26,2.26,2.26,1
+Short,1.94,1.94,1.94,1
